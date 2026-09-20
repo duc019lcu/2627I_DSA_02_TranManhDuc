@@ -1,0 +1,16 @@
+(a) Tất cả các phần tử từ 1 - (n-1) đều kết nối với 0 nên chúng liên thông với nhau và gom lại thành 1 thành phần liên thông duy nhất
+
+(b) Ở thao tác union(0, 1), mảng cập nhật 1 lần
+Thao tác union(0, 2), mảng cập nhật 2 lần
+...
+Thao tác union(0, n-1), mảng cập nhật n-1 lần
+-> Tổng số lần: 1 + 2 +...+ n - 1 = n(n-1)/2
+
+(c) Sau khi thực hiện n-1 thao tác union, cây bị kéo dãn thành 1 được thẳng duy nhất 0 -> 1 -> 2 -> 3 -> ... -> n - 1
+Với nút n - 1 là gốc, nút 0 nằm ở đấy sâu nhất với độ sâu là n - 1
+Khi gọi find(0), thuật toán duyệt ngược toàn bộ chuỗi n - 1 cạnh từ 0 lên đến đỉnh n - 1. Số lần truy cập mảng tỉ lệ thuận với độ sâu này, nên độ phức tạp sẽ là O(n)
+
+(d) Ở thao tác union(0, 1): hai cây đều có kích thước 1. Theo quy tắc, gốc 1 trỏ và gốc 0
+Ở thao tác union(0, 2): Cây chứa 0 lớn hơn cây chứa 2, nên gốc 2 cũng trỏ vào gốc 0
+Ở các thao tác sau, cây chứa 0 luôn có kích thước lớn hơn 1, trong khi nút đang xét thì có kích thước 1 -> trỏ vào gốc 0
+=> 0 là nút gốc của toàn bộ cấu trúc dữ liệu. Khi gọi find(0), kiểm tra 0 == parent[0] thấy đúng mà không phải qua bước nhảy nào -> độ phức tạp O(1)

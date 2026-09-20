@@ -1,0 +1,31 @@
+Nguyên nhân gây lỗi:Trong vòng lặp for, điều kiện so sánh trực tiếp với leader[p]. Khi chỉ số i duyệt tới vị trí p (i = p), câu lệnh leader[i] = leader[q] sẽ ghi đè giá trị mới vào chính leader[p]. Kể từ thời điểm đó trở đi, biểu thức so sánh bị đổi thành leader[i] == giá trị mới, làm mất đi giá trị leader ban đầu của p. Hệ quả là mọi phần tử đứng sau p (i > p) vốn dĩ cùng nhóm với p sẽ không còn thỏa mãn điều kiện và bị bỏ sót, không được cập nhật sang leader của q.   
+Testcase kiểm chứng:Số lượng phần tử: n = 3 (0, 1, 2).
+Chuỗi thao tác union():
+1. union(1, 0)
+2. union(0, 2)
+Hai phần tử kiểm tra: i = 0 và j = 1.
+Diễn giải chi tiết từng bước:
+Ban đầu: leader = [0, 1, 2].
+Thực hiện union(1, 0) (p = 1, q = 0):
+Chỉ số i = 1 đổi thành 0.
+Mảng thành: [0, 0, 2]. Lúc này phần tử 0 và 1 đã liên thông với nhau (cùng có leader là 0).
+Thực hiện union(0, 2) (p = 0, q = 2):
+Tại i = 0 (i = p): leader[0] == leader[0] -> đúng, cập nhật leader[0] = leader[2] = 2. Giá trị tham chiếu leader[p] lúc này đã bị biến thành 2.
+Tại i = 1: kiểm tra leader[1] == leader[0] (tức 0 == 2) -> sai. Phần tử 1 bị bỏ qua, không được cập nhật.
+Mảng thu được: leader = [2, 0, 2].
+=> Kết luận testcase: cả 0 và 1 đều thuộc cùng một thành phần liên thông {0, 1, 2}, tuy nhiên:
+find(0) trả về leader[0] = 2.
+find(1) trả về leader[1] = 0.
+find(0) != find(1) -> Cài đặt trên kết luận sai bản chất liên thông.
+Cách khắc phục: Lưu giá trị đại diện ban đầu của leader[p] (và leader[q]) vào biến tạm trước khi cho vòng lặp chạy, nhằm giữ nguyên mốc so sánh trong suốt quá trình duyệt:
+public void union(int p, int q) {
+    int pLeader = leader[p];
+    int qLeader = leader[q];
+    if (pLeader == qLeader) return;
+
+    for (int i = 0; i < leader.length; i++) {
+        if (leader[i] == pLeader) {
+            leader[i] = qLeader;
+        }
+    }
+}

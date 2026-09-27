@@ -1,0 +1,32 @@
+1. COS226, Midterm f24, 6
+(a) Chọn đáp án đầu tiên: 1 2 3 3 4 5 4 5 6 7.
+* Hàng đợi hoạt động theo nguyên tắc FIFO. Cứ sau mỗi 3 thao tác, queue sẽ in toàn bộ các phần tử hiện có từ đầu đến cuối
+- enqueue(0): queue = [0]
+- enqueue(1): queue = [0, 1]
+- dequeue(): Lấy 0 ra -> queue = [1]
+-> Thao tác thứ 3 (in queue): in ra 1
+- enqueue(2): queue = [1, 2]
+- enqueue(3): queue = [1, 2, 3]
+- dequeue(): lấy 1 ra -> queue = [2, 3]
+-> Thao tác thứ 6 (in queue): in ra 2 3
+- enqueue(4): queue = [2, 3, 4]
+- enqueue(5): queue = [2, 3, 4, 5]
+- dequeue(): lấy 2 ra -> queue = [3, 4, 5] 
+-> Thao tác thứ 9 (in queue): in ra 3 4 5
+- enqueue(6): queue = [3, 4, 5, 6]
+- enqueue(7): queue = [3, 4, 5, 6, 7]
+- dequeue(): lấy 3 ra -> queue = [4, 5, 6, 7]
+-> Thao tác thứ 12 (in queue): in ra 4 5 6 7
+-> Kết quả: 1 2 3 3 4 5 4 5 6 7.
+
+(b) Thời gian chạy trong worst case: O(n)
+- Thao tác thêm một nút vào cuối danh sách bình thường chỉ tốn thời gian O(1).
+- Trong worst case, thao tác này là thao tác thứ 3 của chu kỳ.
+- Khi đó, chương trình phải duyệt qua n phần tử trong danh sách, tiêu tốn O(n)
+-> Tổng thời gian tiêu tốn là O(n)
+
+(c) Thời gian chạy trung bình (amortized) trên mỗi thao tác đối với chuỗi n thao tác là: O(n)
+- Xét worst case của chuỗi n thao tác từ hàng đợi rỗng: chuỗi gồm toàn bộ thao tác enqueue.
+- Việc in diễn ra đều đặn ở 3, 6, 9,..., 3k (tổng cộng n/3 lần in)
+-> tổng thời gian = 3*(1 + 2 + 3 +...+ n/3) = n^2/6 -> tiêu tốn O(n^2)
+-> Amortized: O(n^2)/n = O(n) 

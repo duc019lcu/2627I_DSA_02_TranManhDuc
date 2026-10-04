@@ -1,0 +1,5 @@
+Đối với hai thuật toán Insertion Sort và Selection Sort:
+
+- Insertion Sort có thể được cân nhắc sử dụng, vì thao tác chèn một phần tử vào giữa danh sách chỉ tốn O(1), không phải tốn công dịch chuyển toàn bộ mảng sang phải như trên mảng tĩnh.
+- Selection Sort không nên được dùng, vì mỗi bước Selection Sort hải tìm giá trị nhỏ nhất trong đoạn còn lại. Linked List không hỗ trợ truy cập ngẫu nhiên qua chỉ số (O(1)) mà phải duyệt từ đầu (O(n)), làm tăng số phép duyệt không cần thiết.
+
